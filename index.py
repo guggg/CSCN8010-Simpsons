@@ -98,7 +98,7 @@ def render_app():
 
     st.title(st.session_state['models'])
 
-    uploaded_file = st.file_uploader("Upload a Image", type=('bmp', 'jpg', 'png', 'jpeg'))
+    uploaded_file = st.file_uploader("Upload a Image", type=('jpg', 'jpeg'))
 
     for message in st.session_state.chat_dialogue:
         with st.chat_message(message["role"]):
