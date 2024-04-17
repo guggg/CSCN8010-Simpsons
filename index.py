@@ -65,12 +65,12 @@ def render_app():
 
     text1 = 'llama2-chatbot'
     text2 = 'bckgmail'
-    text3 = 'email-spam-classification-merged'
+    text3 = 'CNN + ResNet'
     text4 = 'The Simpsons Characters Data'
 
     text1_link = 'https://github.com/a16z-infra/llama2-chatbot'
     text2_link = 'https://github.com/KajPe/bckgmail'
-    text3_link = 'https://huggingface.co/h-e-l-l-o/email-spam-classification-merged'
+    text3_link = 'https://www.kaggle.com/code/vellyy/cnn-resnet'
     text4_link = 'https://www.kaggle.com/datasets/alexattia/the-simpsons-characters-dataset'
 
     logo1 = 'https://cdn.pixabay.com/photo/2022/01/30/13/33/github-6980894_1280.png'
@@ -80,8 +80,8 @@ def render_app():
     st.sidebar.markdown(
         "**Reference Code and Model:**  \n"
         f"<img src='{logo3}' style='height: 2em'> [{text4}]({text4_link})  \n"
-        f"<img src='{logo1}' style='height: 2em'> [{text1}]({text1_link})  \n",
-        #f"<img src='{logo2}' style='height: 2em'> [{text3}]({text3_link})",
+        f"<img src='{logo1}' style='height: 2em'> [{text1}]({text1_link})  \n"
+        f"<img src='{logo3}' style='height: 2em'> [{text3}]({text3_link})",
         unsafe_allow_html=True)
 
     icon_arcadio = 'https://avatars.githubusercontent.com/u/122412860?v=4'
@@ -98,7 +98,7 @@ def render_app():
 
     st.title(st.session_state['models'])
 
-    uploaded_file = st.file_uploader("Upload a Image", type=('jpg', 'jpeg'))
+    uploaded_file = st.file_uploader("Upload a Image", type=('jpg', 'jpeg', 'png'))
 
     for message in st.session_state.chat_dialogue:
         with st.chat_message(message["role"]):
@@ -106,10 +106,18 @@ def render_app():
 
     if uploaded_file:
         if st.session_state['models'] == 'MobileNetV2':
-            image = Image.open(uploaded_file).resize((224, 224))
+            if uploaded_file.name.lower().endswith('.png'):
+                image = Image.open(uploaded_file).convert('RGB').resize((224, 224))
+            else:
+                image = Image.open(uploaded_file).resize((224, 224))
         else:
-            image = Image.open(uploaded_file).resize((180, 180))
+            if uploaded_file.name.lower().endswith('.png'):
+                image = Image.open(uploaded_file).convert('RGB').resize((180, 180))
+            else:
+                image = Image.open(uploaded_file).resize((180, 180))
         st.image(image, width=150, channels="BGR")
+
+
 
         with st.chat_message("assistant"):
             message_placeholder = st.empty()
