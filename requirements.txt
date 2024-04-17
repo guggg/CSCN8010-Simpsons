@@ -1,5 +1,6 @@
 # tensorflow[and-cuda]==2.12.0
 # tensorboard==2.12.3
+streamlit==1.33.0
 matplotlib==3.7.1
 numpy==1.23.5
 ipykernel==6.22.0  # needed to run jupyter notebooks 
@@ -13,4 +14,3 @@ tensorflow==2.10.1
 pandas==2.0.1
 seaborn==0.11.1
 tensorboard==2.10.1
-streamlit==1.33.0
