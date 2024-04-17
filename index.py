@@ -106,18 +106,10 @@ def render_app():
 
     if uploaded_file:
         if st.session_state['models'] == 'MobileNetV2':
-            if uploaded_file.name.lower().endswith('.png'):
-                image = Image.open(uploaded_file).convert('RGB').resize((224, 224))
-            else:
-                image = Image.open(uploaded_file).resize((224, 224))
+            image = Image.open(uploaded_file).convert('RGB').resize((224, 224))
         else:
-            if uploaded_file.name.lower().endswith('.png'):
-                image = Image.open(uploaded_file).convert('RGB').resize((180, 180))
-            else:
-                image = Image.open(uploaded_file).resize((180, 180))
+            image = Image.open(uploaded_file).convert('RGB').resize((180, 180))
         st.image(image, width=150, channels="BGR")
-
-
 
         with st.chat_message("assistant"):
             message_placeholder = st.empty()
